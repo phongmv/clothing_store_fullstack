@@ -1,5 +1,5 @@
 import {initializeApp} from 'firebase/app';
-import {GoogleAuthProvider, signInWithPopup, getAuth} from 'firebase/auth';
+import {GoogleAuthProvider, signInWithPopup, getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 import {getFirestore, doc, getDoc, setDoc} from 'firebase/firestore';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -25,6 +25,8 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, provider)
 
 export const db = getFirestore()
 export const createUserDocumentFromAuth = async (userAuth) => {
+    if(!userAuth) return
+
     const userDocRef = doc(db, 'users', userAuth.uid)
     const userSnapShot = await getDoc(userDocRef)
 
@@ -44,4 +46,10 @@ export const createUserDocumentFromAuth = async (userAuth) => {
     }
 
     return userDocRef
+}
+
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+   if(!email || !password) return
+
+   return  await  createUserWithEmailAndPassword(auth, email, password)
 }
