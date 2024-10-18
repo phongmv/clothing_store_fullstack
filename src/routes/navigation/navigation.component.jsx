@@ -9,10 +9,10 @@ const NavigationBar = () => {
                 <CRLogo className="logo"/>
             </Link>
             <div className="nav-links-container">
-                <Link className="nav-link" to="shop">
+                <Link className="nav-link" to="/shop">
                     <h3>Shop</h3>
                 </Link>
-                <Link className="nav-link" to="sign-in">
+                <Link className="nav-link" to="/auth">
                     <h3>Sign In</h3>
                 </Link>
             </div>

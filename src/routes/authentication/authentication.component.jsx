@@ -3,8 +3,10 @@ import {
     createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.util";
 import SignUpForm from "../../components/sign-up-form/sign-up-form.component";
+import SignInForm from "../../components/sign-in-form/sign-in-form.component";
+import './authentication.style.scss'
 
-const SignIn = () => {
+const Authentication = () => {
     const logGoogleUser = async () => {
         const {user} =  await signInWithGooglePopup()
         // Create user into database with auth
@@ -12,11 +14,10 @@ const SignIn = () => {
         console.log(userDocRef)
     }
 
-    return <div>
-        <h1>Sign In</h1>
-        <button onClick={logGoogleUser}>Sign in with google pop-up</button>
+    return <div className="authentication-container">
+        <SignInForm/>
         <SignUpForm/>
     </div>
 }
 
-export default SignIn
+export default Authentication

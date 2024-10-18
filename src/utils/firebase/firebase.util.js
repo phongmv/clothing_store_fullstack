@@ -1,5 +1,5 @@
 import {initializeApp} from 'firebase/app';
-import {GoogleAuthProvider, signInWithPopup, getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
+import {GoogleAuthProvider, signInWithPopup, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
 import {getFirestore, doc, getDoc, setDoc} from 'firebase/firestore';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -53,4 +53,10 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
    if(!email || !password) return
 
    return  await  createUserWithEmailAndPassword(auth, email, password)
+}
+
+export const signInUserWithEmailAndPassword = async (email, password) => {
+    if(!email || !password) return
+
+    return await signInWithEmailAndPassword(auth, email, password)
 }
