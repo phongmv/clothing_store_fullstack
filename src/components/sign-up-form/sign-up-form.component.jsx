@@ -3,6 +3,9 @@ import {createAuthUserWithEmailAndPassword, createUserDocumentFromAuth} from "..
 import FormInput from "../form-input/form-input.component";
 import './sign-up-form.style.scss'
 import Button from "../button/button.component";
+import {useContext} from "react";
+import {UserContext} from "../../context/user.context";
+
 const defaultFormField = {
     displayName: '',
     email: '',
@@ -13,11 +16,13 @@ const defaultFormField = {
 const SignUpForm = () => {
     const [formField, setFormField] = useState(defaultFormField)
     const {displayName, email, password, confirmPassword} = formField
+    const {setCurrentUser} = useContext(UserContext)
 
     const handleChange = (e) => {
         const {name, value} = e.target
         setFormField({...formField, [name]: value})
     }
+
 
     const resetFormField = () => {
         setFormField({...defaultFormField})
@@ -32,6 +37,7 @@ const SignUpForm = () => {
         try {
             const {user} = await createAuthUserWithEmailAndPassword(email, password)
             await createUserDocumentFromAuth(user, {displayName})
+            setCurrentUser(user)
             resetFormField()
         } catch (err) {
             if(err.code === 'auth/email-already-in-use') {
@@ -49,7 +55,6 @@ const SignUpForm = () => {
         <form onSubmit={handleSubmitForm}>
             <FormInput
                 label="Display name"
-                id="display-name"
                 type="text"
                 name="displayName"
                 required
@@ -57,7 +62,6 @@ const SignUpForm = () => {
                 onChange={handleChange}/>
             <FormInput
                 label="Email"
-                id="email"
                 type="email"
                 required
                 name="email"
@@ -65,7 +69,6 @@ const SignUpForm = () => {
                 onChange={handleChange}/>
             <FormInput
                 label="Password"
-                id="password"
                 type="password"
                 name="password"
                 required
@@ -73,7 +76,6 @@ const SignUpForm = () => {
                 onChange={handleChange}/>
             <FormInput
                 label="Confirm password"
-                id="confirm-password"
                 type="password"
                 name="confirmPassword"
                 required

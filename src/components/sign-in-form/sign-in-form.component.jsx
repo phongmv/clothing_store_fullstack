@@ -1,11 +1,14 @@
+import './sign-in-form.style.scss'
 import {useState} from "react";
 import FormInput from "../form-input/form-input.component";
-import './sign-in-form.style.scss'
 import Button from "../button/button.component";
 import {
     createUserDocumentFromAuth, signInUserWithEmailAndPassword,
     signInWithGooglePopup
 } from "../../utils/firebase/firebase.util";
+import {useContext} from "react";
+import {UserContext} from "../../context/user.context";
+
 const defaultFormField = {
     email: '',
     password: '',
@@ -14,6 +17,7 @@ const defaultFormField = {
 const SignInForm = () => {
     const [formField, setFormField] = useState(defaultFormField)
     const { email, password} = formField
+    const { setCurrentUser } = useContext(UserContext)
 
     const handleChange = (e) => {
         const {name, value} = e.target
@@ -27,20 +31,21 @@ const SignInForm = () => {
     const signInWithGoogle = async () => {
         const {user} = await signInWithGooglePopup()
         await createUserDocumentFromAuth(user)
+        setCurrentUser(user)
     }
 
     const handleSubmitForm = async (e) => {
         e.preventDefault()
         try {
-            const response  = await signInUserWithEmailAndPassword(email, password)
-            console.log(response)
+            const {user}  = await signInUserWithEmailAndPassword(email, password)
+            setCurrentUser(user)
             resetFormField()
         } catch (err) {
             switch(err.code) {
                 case 'auth/wrong-password':
                     alert('Incorrect password for email')
                     break
-                case 'auth/user-not-found':
+                case 'auth/invalid-credential':
                     alert('No user associated with this email')
                     break
                 default:
@@ -56,7 +61,6 @@ const SignInForm = () => {
         <form onSubmit={handleSubmitForm}>
             <FormInput
                 label="Email"
-                id="email"
                 type="email"
                 required
                 name="email"
@@ -64,7 +68,6 @@ const SignInForm = () => {
                 onChange={handleChange}/>
             <FormInput
                 label="Password"
-                id="password"
                 type="password"
                 name="password"
                 required
