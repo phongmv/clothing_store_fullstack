@@ -1,5 +1,5 @@
 import {Link, Outlet} from "react-router-dom";
-import {Fragment, useState} from "react";
+import {Fragment} from "react";
 import {ReactComponent as CRLogo} from "../../assets/images/crown.svg";
 import './navigation.style.scss'
 import {useContext} from "react";
