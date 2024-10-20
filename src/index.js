@@ -6,12 +6,15 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import {UserContextProvider} from "./context/user.context";
 import {ProductContextProvider} from "./context/products.context";
+import {CartContextProvider} from "./context/cart.context";
 ReactDOM.render(
   <React.StrictMode>
    <BrowserRouter>
        <UserContextProvider>
            <ProductContextProvider>
-               <App />
+               <CartContextProvider>
+                   <App />
+               </CartContextProvider>
            </ProductContextProvider>
        </UserContextProvider>
    </BrowserRouter>
