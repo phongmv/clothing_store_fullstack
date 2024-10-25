@@ -10,12 +10,12 @@ export const ProductsContext = createContext({
 export const ProductContextProvider = ({children}) => {
     const [products, setProducts] = useState({})
 
-    useEffect( () => {
+    useEffect( async () => {
         const getCategoriesMap = async () => {
             const categories = await getCategoriesAndDocuments()
             setProducts({...categories})
         }
-        getCategoriesMap()
+        await getCategoriesMap()
     }, []);
 
 
