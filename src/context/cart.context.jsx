@@ -48,6 +48,7 @@ export const CartContext = createContext({
     decrementItemFromCart: () => []
 });
 
+
 export const CartContextProvider = ({children}) => {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [cartItems, setCartItems] = useState([]);

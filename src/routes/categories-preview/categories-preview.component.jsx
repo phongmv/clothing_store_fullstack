@@ -8,10 +8,7 @@ const CategoriesPreview = () => {
     const {products} = useContext(ProductsContext)
 
     return <Fragment>
-        {Object.keys(products).map((title, index) => {
-            const productList = products[title]
-            return <CategoryPreview key={index} title={title} products={productList}/>
-        })}
+        {Object.keys(products).map((title, index) => <CategoryPreview key={index} title={title} products={products[title]}/>)}
     </Fragment>
 }
 
