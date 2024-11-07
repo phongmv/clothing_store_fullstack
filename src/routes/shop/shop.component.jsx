@@ -5,6 +5,7 @@ import Category from "../../components/category/catogory.component";
 import {ProductContextProvider} from "../../context/products.context";
 
 const Shop = () => {
+    console.log('shop components!')
     return<ProductContextProvider>
         <Routes>
             <Route index element={<CategoriesPreview/>} />

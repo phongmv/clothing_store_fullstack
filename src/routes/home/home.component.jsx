@@ -20,7 +20,7 @@ const Home = () => {
         },
         {
             "id": 4,
-            "title": "Women",
+            "title": "Womens",
             "imageUrl": "https://i.ibb.co/GCCdy8t/womens.png"
         },
         {

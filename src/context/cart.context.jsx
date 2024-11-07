@@ -1,4 +1,4 @@
-import {createContext, useEffect, useReducer, useState} from "react";
+import {createContext, useReducer} from "react";
 import {createAction} from "../utils/reducer/reducer.utils";
 
 const MAX_ITEM = 99
@@ -80,10 +80,9 @@ const cartReducer = (state, action) => {
 }
 
 export const CartContextProvider = ({children}) => {
-    const  [{cartItems, itemsCount, isCartOpen,totalItemsPrice}, dispatch] = useReducer(cartReducer,INITIAL_CART_VALUE)
+    const  [{cartItems, itemsCount, isCartOpen,totalItemsPrice}, dispatch] = useReducer(cartReducer, INITIAL_CART_VALUE)
 
     const updateNewCartValue = (newCartItems) => {
-
         const newTotalCartItem = newCartItems.reduce((sum, curr) => sum + curr.quantity, 0)
         const newTotalPrice =  newCartItems.reduce((sum, curr) => sum + curr.quantity * curr.price, 0)
 
